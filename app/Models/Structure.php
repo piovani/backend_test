@@ -2,10 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Structure extends Model
+class Structure extends Domain
 {
-    use HasFactory;
+    protected $fillable = [
+        'address',
+        'bedrooms',
+        'bathrooms',
+        'total_area',
+        'purchased',
+        'value',
+        'discount',
+        'owner_id',
+        'expired',
+    ];
 }

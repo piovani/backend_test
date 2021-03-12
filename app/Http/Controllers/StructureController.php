@@ -2,84 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StructureRequest;
 use App\Models\Structure;
 use Illuminate\Http\Request;
+use Services\Structures\CreateStructure;
+use Services\Structures\DeleteStructure;
+use Services\Structures\UpdateStructure;
 
 class StructureController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return $this->jsonReponseData(Structure::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(StructureRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        return $this->jsonReponseData(call_user_func(new CreateStructure(), $data));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Structure  $structure
-     * @return \Illuminate\Http\Response
-     */
     public function show(Structure $structure)
     {
-        //
+        return $this->jsonReponseData($structure);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Structure  $structure
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Structure $structure)
+    public function update(StructureRequest $request, Structure $structure)
     {
-        //
+        $data = $request->validated();
+
+        return $this->jsonReponseData(call_user_func(new UpdateStructure(), $structure, $data));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Structure  $structure
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Structure $structure)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Structure  $structure
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Structure $structure)
     {
-        //
+        if (!call_user_func(new DeleteStructure(), $structure)) {
+            return $this->jsonReponseData(null, 404);
+        }
+
+        return $this->jsonReponseData();
     }
 }

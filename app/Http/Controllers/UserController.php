@@ -36,7 +36,9 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        call_user_func(new DeleteUser(), $user);
+        if (!call_user_func(new DeleteUser(), $user)) {
+            return $this->jsonReponseData(null, 404);
+        }
 
         return $this->jsonReponseData();
     }

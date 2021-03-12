@@ -12,7 +12,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    function jsonReponseData($data = null, $status = 200)
+    function jsonReponseData($data = null, int $status = 200)
     {
         return response()->json(['data' => $data], $status);
     }
