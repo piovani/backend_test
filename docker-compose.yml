@@ -1,0 +1,33 @@
+version: '3.7'
+
+volumes:
+  backend_test-database:
+    external: true
+
+networks:
+  backend_test-network:
+    external: true
+
+services:
+  backend_test:
+    image: ambientum/php:7.4-nginx
+    volumes:
+      - .:/var/www/app
+    ports:
+      - ${APP_PORT}:8080
+    networks:
+      - backend_test-network
+
+  backend_test-database:
+    image: mysql:5.7
+    volumes:
+      - backend_test-database:/var/lib/mysql
+    ports:
+      - ${DB_MYSQL_PORT}:3306
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - backend_test-network
