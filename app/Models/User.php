@@ -8,4 +8,14 @@ class User extends Domain
         'name',
         'email',
     ];
+
+    public function structures()
+    {
+        return $this->hasMany(Structure::class, 'owner_id');
+    }
+
+    public function structuresNotPurchased()
+    {
+        return $this->structures()->where('purchased', false);
+    }
 }

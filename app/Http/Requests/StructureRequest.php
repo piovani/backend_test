@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\LimitProperties;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StructureRequest extends FormRequest
@@ -28,7 +29,7 @@ class StructureRequest extends FormRequest
 
             'discount'   => ['required', 'numeric'],
 
-            'owner_id'   => ['required', 'exists:users,id'],
+            'owner_id'   => ['required', 'exists:users,id', new LimitProperties()],
 
             'expired'    => ['required', 'boolean'],
         ];
