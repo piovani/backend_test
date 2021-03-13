@@ -18,8 +18,12 @@ class LimitProperties implements Rule
     {
         $user = User::find($value);
 
+        if (empty($user)) {
+            return false;
+        }
+
         if ($this->purchased) {
-            return $this->purchased;
+            return true;
         }
 
         return !($user->structuresNotPurchased()->count() >= 3);

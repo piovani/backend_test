@@ -32,6 +32,8 @@ class StructureRequest extends FormRequest
             'owner_id'   => ['required', 'exists:users,id', new LimitProperties()],
 
             'expired'    => ['required', 'boolean'],
+
+            'created_at' => ['nullable', 'date', 'date_format:Y-m-d H:i:s'],
         ];
     }
 }

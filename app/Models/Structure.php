@@ -14,5 +14,6 @@ class Structure extends Domain
         'discount',
         'owner_id',
         'expired',
+        'created_at',
     ];
 }
