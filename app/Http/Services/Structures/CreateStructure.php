@@ -11,7 +11,9 @@ class CreateStructure extends StructureService
     {
         $structure = new Structure($data);
 
-        $structure = $this->checkExpired($structure);
+        if (!empty($data['created_at'])) {
+            $structure = $this->checkExpired($structure);
+        }
 
         return $structure->save() ? $structure : null;
     }
