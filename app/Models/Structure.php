@@ -16,4 +16,12 @@ class Structure extends Domain
         'expired',
         'created_at',
     ];
+
+    protected $appends = [
+        'value_total',
+    ];
+
+    public function getValueTotalAttribute() {
+        return $this->value * (($this->discount/100) + 1);
+    }
 }
